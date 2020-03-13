@@ -6,6 +6,10 @@
  */
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+
+const postCssPresetEnv = require('postcss-preset-env')
 const path = require('path');
 
 module.exports = {
@@ -22,5 +26,11 @@ module.exports = {
         contentBase: path.join(__dirname,'..','dist'),
         compress : true,
         open : true
+    },
+    // loaders
+    module : {
+        rules : [
+            
+        ]
     }
 };
