@@ -1,5 +1,6 @@
 // "use strict";
 /**
+ * https://survivejs.com/webpack/developing/webpack-dev-server/
  * los loader iran en module
  * cada modulo tendrá una regla que se va a definir a cada objeto, un objeto para babel
  * otro para css otro para interpretar js
@@ -11,7 +12,7 @@ const postcssPresetEnv = require("postcss-preset-env");
 const path = require("path");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
-const { HotModuleReplacementPlugin } = require('webpack')
+const { HotModuleReplacementPlugin ,WatchIgnorePlugin} = require('webpack')
 
 const REGEX_JS = /^(?!.*\.{test,min}\.js$).*\.js$/i
 const REGEX_STYLES = /\.(sa|sc|c)ss$/i
@@ -22,17 +23,26 @@ module.exports = {
     entry: {
         app: ["@babel/polyfill", "./src/main.js"]
     },
-    mode: "development",
+    watch : true,
+    // mode: "development",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "js/[name].[hash].js"
+        filename: env === 'production'?"js/[name].[hash].js" :"js/[name].js"
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
+        // stats: "errors-only",
+        hot:true,
         compress: true,
         open: true,
-        hot:true,
-        port: 4200
+        port: 4200,
+        overlay: true,
+        watchOptions: {
+            // Delay the rebuild after the first change
+            aggregateTimeout: 300,
+            // Poll using interval (in ms, accepts boolean too)
+            poll: 1000,
+        },
     },
     module: {
         rules: [
@@ -165,7 +175,12 @@ module.exports = {
 
         // }),
         new CleanWebpackPlugin(),
-        new HotModuleReplacementPlugin(),
+        // Ignore node_modules so CPU usage with poll
+        // watching drops significantly.
+        new WatchIgnorePlugin([
+            path.join(__dirname, "node_modules")
+        ]),
+        // new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             title: 'Webpack Starter',
             template: './src/index.pug'
@@ -184,7 +199,7 @@ module.exports = {
             canPrint: true
         }),
         new MiniCssExtractPlugin({
-            filename: "css/[name].[contenthash].css",
+            filename: env === 'production' ?"css/[name].[contenthash].css":"css/[name].css",
             chunkFilename: "[id].css"
         }),
     ]
