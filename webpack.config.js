@@ -10,13 +10,15 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const postcssPresetEnv = require("postcss-preset-env");
 const path = require("path");
 
+const { HotModuleReplacementPlugin } = require('webpack')
+
 const REGEX_JS = /^(?!.*\.{test,min}\.js$).*\.js$/i
-const REGEX_STYLES = /\.(sa|sc|c)ss$/
+const REGEX_STYLES = /\.(sa|sc|c)ss$/i
 
 module.exports = {
     devtool: "source-map",
     entry: {
-        app: ["@babel/polyfill", "./src/main.js",'./src/scss/style.scss']
+        app: ["@babel/polyfill", "./src/main.js"]
     },
     mode: "development",
     output: {
@@ -26,7 +28,9 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
-        open: true
+        open: true,
+        hot:true,
+        port: 4200
     },
     module: {
         rules: [
@@ -55,24 +59,27 @@ module.exports = {
                 test: REGEX_STYLES ,
                 exclude: /node_modules/,
                 use: [
+                    // {
+                    //     loader: MiniCssExtractPlugin.loader,
+                    //     options: {
+                    //         publicPath: "../"
+                    //     }
+                    // },
                     {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: "../"
-                        }
+                        loader:'style-loader'
                     },
                     {
                         loader: "css-loader",
                         options: {
                             sourceMap: true,
-                            importLoaders: 2
+                            // importLoaders: 2
                         }
                     },
                     {
                         loader: "sass-loader",
                         options: {
                             sourceMap: true,
-                            importLoaders: 1
+                            // importLoaders: 1
                         }
                     },
                     {
@@ -154,13 +161,10 @@ module.exports = {
         //   },
 
         // }),
+        new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             title: 'Webpack Starter',
             template: './src/index.pug'
-        }),
-        new MiniCssExtractPlugin({
-            filename: "css/[name].css",
-            chunkFilename: "[id].css"
         }),
         new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.(sa|sc|c)ss$/,
@@ -174,6 +178,10 @@ module.exports = {
                 ]
             },
             canPrint: true
-        })
+        }),
+        new MiniCssExtractPlugin({
+            filename: "css/[name].css",
+            chunkFilename: "[id].css"
+        }),
     ]
 };
