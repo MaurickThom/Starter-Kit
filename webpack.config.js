@@ -14,6 +14,7 @@ const { HotModuleReplacementPlugin } = require('webpack')
 
 const REGEX_JS = /^(?!.*\.{test,min}\.js$).*\.js$/i
 const REGEX_STYLES = /\.(sa|sc|c)ss$/i
+const env = process.env.NODE_ENV;
 
 module.exports = {
     devtool: "source-map",
@@ -59,15 +60,16 @@ module.exports = {
                 test: REGEX_STYLES ,
                 exclude: /node_modules/,
                 use: [
-                    // {
-                    //     loader: MiniCssExtractPlugin.loader,
-                    //     options: {
-                    //         publicPath: "../"
-                    //     }
-                    // },
+                    (env !== 'development'?
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: "../"
+                        }
+                    } :
                     {
                         loader:'style-loader'
-                    },
+                    }),
                     {
                         loader: "css-loader",
                         options: {
