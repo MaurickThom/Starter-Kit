@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const postcssPresetEnv = require("postcss-preset-env");
 const path = require("path");
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 const { HotModuleReplacementPlugin } = require('webpack')
 
@@ -24,7 +25,7 @@ module.exports = {
     mode: "development",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "js/[name].js"
+        filename: "js/[name].[hash].js"
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
@@ -163,6 +164,7 @@ module.exports = {
         //   },
 
         // }),
+        new CleanWebpackPlugin(),
         new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             title: 'Webpack Starter',
@@ -182,7 +184,7 @@ module.exports = {
             canPrint: true
         }),
         new MiniCssExtractPlugin({
-            filename: "css/[name].css",
+            filename: "css/[name].[contenthash].css",
             chunkFilename: "[id].css"
         }),
     ]
