@@ -11,12 +11,12 @@ const postcssPresetEnv = require("postcss-preset-env");
 const path = require("path");
 
 const REGEX_JS = /^(?!.*\.{test,min}\.js$).*\.js$/i
-const REGEX_STYLES = /\.(sa|sc|c)ss$/i
+const REGEX_STYLES = /\.(sa|sc|c)ss$/
 
 module.exports = {
     devtool: "source-map",
     entry: {
-        app: ["@babel/polyfill", "./src/main.js"]
+        app: ["@babel/polyfill", "./src/main.js",'./src/scss/style.scss']
     },
     mode: "development",
     output: {
