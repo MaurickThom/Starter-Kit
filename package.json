@@ -4,7 +4,8 @@
   "description": "ESLint",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon",
+    "startWebPack":"cross-env NODE_ENV=development webpack-dev-server --mode development --config webpack.config.js",
+    "start": "concurrently \"npx nodemon\" \"npm run startWebPack\"",
     "build": "rimraf dist/ && cross-env NODE_ENV=production webpack --mode production --config webpack.config.js"
   },
   "keywords": [],
@@ -19,6 +20,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "browserslist": "^4.9.1",
+    "concurrently": "^5.1.0",
     "postcss-preset-env": "^6.7.0"
   },
   "devDependencies": {

@@ -7,6 +7,5 @@
     ],
     "watch":[
         "webpack.config.js"
-    ],
-    "exec":"cross-env NODE_ENV=development webpack-dev-server --mode development --config webpack.config.js"
+    ]
 }
