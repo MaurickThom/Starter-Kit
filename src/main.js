@@ -1,6 +1,6 @@
 import './index.pug'
 import './scss/style.scss'
 import './js/other'
-console.log('asdas')
+import './img/img-1.png'
 console.log('hello world')
 

@@ -11,7 +11,6 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const postcssPresetEnv = require("postcss-preset-env");
 const path = require("path");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-
 const { HotModuleReplacementPlugin ,WatchIgnorePlugin} = require('webpack')
 
 const REGEX_JS = /^(?!.*\.{test,min}\.js$).*\.js$/i
