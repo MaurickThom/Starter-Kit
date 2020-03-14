@@ -10,6 +10,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const postcssPresetEnv = require("postcss-preset-env");
 const path = require("path");
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const { HotModuleReplacementPlugin ,WatchIgnorePlugin} = require('webpack')
 
@@ -20,7 +21,13 @@ const env = process.env.NODE_ENV;
 module.exports = {
     devtool: "source-map",
     entry: {
-        app: ["@babel/polyfill", "./src/main.js"]
+        app: ["@babel/polyfill", "./src/main.ts"]
+    },
+    resolve: {
+        extensions: ['.ts','.js','.json']
+    },
+    optimization: {
+        minimizer: [ new OptimizeCssAssetsPlugin() ]
     },
     watch : true,
     // mode: "development",
@@ -46,6 +53,11 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
+            },
             {
                 test: REGEX_JS,
                 exclude: /(node_modules)/,
@@ -202,5 +214,6 @@ module.exports = {
             filename: env === 'production' ?"css/[name].[contenthash].css":"css/[name].css",
             chunkFilename: "[id].css"
         }),
+        new MinifyPlugin(),
     ]
 };
