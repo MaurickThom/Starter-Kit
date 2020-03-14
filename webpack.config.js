@@ -36,6 +36,7 @@ module.exports = {
         compress: true,
         open: true,
         port: 4200,
+        host: "localhost",
         overlay: true,
         watchOptions: {
             // Delay the rebuild after the first change

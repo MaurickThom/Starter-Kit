@@ -4,4 +4,3 @@ import './js/other'
 console.log('asdas')
 console.log('hello world')
 
-console.log('asdasdasasdasdadasasdasdasdasdasd');
