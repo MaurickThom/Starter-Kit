@@ -30,7 +30,7 @@ module.exports = {
         minimizer: [ new OptimizeCssAssetsPlugin() ]
     },
     watch : true,
-    // mode: "development",
+    mode: env,
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: env === 'production'?"js/[name].[hash].js" :"js/[name].js"
