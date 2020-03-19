@@ -23,7 +23,7 @@ module.exports = {
         app: ["@babel/polyfill", "./src/main.js"]
     },
     watch : true,
-    // mode: "development",
+    mode: env,
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: env === 'production'?"js/[name].[hash].js" :"js/[name].js"
