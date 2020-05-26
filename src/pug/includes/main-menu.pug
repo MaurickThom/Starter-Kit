@@ -1,9 +1,10 @@
+//- include ../config/variables
 nav.main-menu(itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation")#main-menu
   ul
-    each page in pages
+    each page in global.pages
       li.main-menu__item(itemprop="url")
           a.main-menu__link(href=page.url itemprop="name")= page.title
             if page.child.length > 0
-              ul
-                each page2 in page.child
-                  li: a(href= page2.url)= page2.title
+                ul
+                  each page2 in page.child
+                    li: a(href= page2.url)= page2.title

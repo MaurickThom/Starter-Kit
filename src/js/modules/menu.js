@@ -1,7 +1,6 @@
 export default function () {
   const iconMenu = document.getElementById("icon-menu");
   const mainMenu = document.getElementById("main-menu__nav");
-
   if(!iconMenu || !mainMenu)
     return;
 

@@ -1,16 +1,9 @@
-//- extends ../config/template.pug
-//- append config
-//-   -pageTitle = 'Home'
-//-   -pageDescription = 'Pagina inicial de EDboilerplate'
-//-   -pageImage = 'https://ed.team/sites/default/files/EDboilerplate-logo.png'
+extends ../config/template.pug
+append config
+  - global.pageTitle = 'Home'
+  - global.pageDescription = 'Pagina inicial de EDboilerplate'
+  - global.pageImage = 'https://ed.team/sites/default/files/EDboilerplate-logo.png'
 
-//- block main
-//-   include ../includes/main-menu.pug
-<!DOCTYPE html>
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Document
-  body
-    | index
+block main
+  include ../includes/main-menu
+
