@@ -1,10 +1,4 @@
-// "use strict";
-/**
- * https://survivejs.com/webpack/developing/webpack-dev-server/
- * los loader iran en module
- * cada modulo tendrá una regla que se va a definir a cada objeto, un objeto para babel
- * otro para css otro para interpretar js
- */
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -30,7 +24,6 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        // stats: "errors-only",
         hot:true,
         compress: true,
         open: true,
@@ -38,9 +31,7 @@ module.exports = {
         host: "localhost",
         overlay: true,
         watchOptions: {
-            // Delay the rebuild after the first change
             aggregateTimeout: 300,
-            // Poll using interval (in ms, accepts boolean too)
             poll: 1000,
         },
     },
@@ -55,16 +46,7 @@ module.exports = {
                         options: {
                             presets: ["@babel/preset-env"]
                         }
-                    },
-                    // {
-                    //     loader: "eslint-loader",
-                    //     options: {
-                    //         cache: true,
-                    //         failOnError: true,
-                    //         emitWarning: true,
-                    //         configFile: "./.eslintrc.json"
-                    //     }
-                    // }
+                    }
                 ]
             },
             {
@@ -85,14 +67,12 @@ module.exports = {
                         loader: "css-loader",
                         options: {
                             sourceMap: true,
-                            // importLoaders: 2
                         }
                     },
                     {
                         loader: "sass-loader",
                         options: {
                             sourceMap: true,
-                            // importLoaders: 1
                         }
                     },
                     {
@@ -159,28 +139,10 @@ module.exports = {
         ]
     },
     plugins: [
-        // new HtmlWebpackPlugin({
-        //   title: 'My App',
-        //   filename: 'index.html',
-        //   template: 'src/index.html',
-
-        //   minify: {
-        //     collapseWhitespace: false,
-        //     removeComments: true,
-        //     removeRedundantAttributes: true,
-        //     removeScriptTypeAttributes: true,
-        //     removeStyleLinkTypeAttributes: true,
-        //     useShortDoctype: true,
-        //   },
-
-        // }),
         new CleanWebpackPlugin(),
-        // Ignore node_modules so CPU usage with poll
-        // watching drops significantly.
         new WatchIgnorePlugin([
             path.join(__dirname, "node_modules")
         ]),
-        // new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             title: 'Webpack Starter',
             template: './src/index.pug'

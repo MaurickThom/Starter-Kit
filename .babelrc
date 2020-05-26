@@ -9,11 +9,6 @@
     ],
     "plugins": [
         "@babel/plugin-syntax-dynamic-import"
-    ]
+		]
 
 }
-/*
-    actualmente, @babel/preset-env no sabe que usar import() con webpack depende de promise internamente
-    los entornos que no tienen soporte incorporado para promise, se requirirán que los polyfills de promisa
-    e iterador se agreguen manualmente
-*/

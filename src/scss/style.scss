@@ -1,10 +1,13 @@
-*,
-*::after,
-*::before{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
-body{
-}
+@import "./tools/functions";
+@import "./settings/vars";
+@import "./tools/mixins";
+
+@import "./generic/normalize";
+@import "./generic/base";
+
+
+
+@import "./theme/theme";
+@import "./theme/typography";
+
+@import "./states/open-menu";
