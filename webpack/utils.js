@@ -1,5 +1,4 @@
 exports.pages = function (env, folder = '') {
-  // if(folder==='') return
   const rootPagesFolderName = 'pages'
   const HtmlWebpackPlugin = require('html-webpack-plugin')
   const fs = require('fs')
@@ -12,11 +11,9 @@ exports.pages = function (env, folder = '') {
     if (view.split('.')[1] === undefined)
       return false;
 
-    const viewName = view.split('.')[0];
-    const fileName = folder === '' ? `${viewName}/index.html` : `${folder}/${viewName}/index.html`;
     const options = {
-      filename: fileName,
-      template: `src/pug/${rootPagesFolderName}/${folder}/${view}`,
+      filename:  `${folder}/index.html`,
+      template: `src/pug/${rootPagesFolderName}/${folder}/index.pug`,
       inject: true
     };
 

@@ -180,7 +180,7 @@ module.exports = {
       inject: true
     }),
 
-    ...utils.pages(env),
+    // ...utils.pages(env),
     ...utils.pages(env, 'blog'),
     new WebpackNotifierPlugin({
       title: 'Your project'
